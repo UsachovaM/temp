@@ -1,0 +1,43 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+
+unsigned int cur = 0, a, b;
+unsigned int x[10000000];
+
+unsigned int nextRand24() {
+    cur = cur * a + b;
+    return cur >> 8;
+}
+
+unsigned int nextRand32() {
+    unsigned int a = nextRand24(), b = nextRand24();
+    return (a << 8) ^ b;
+}
+
+int main() {
+    unsigned int i, n;
+    freopen("postman.in", "r", stdin);
+    freopen("postman.out", "w", stdout);
+    long long sum, med, temp;
+    cin >> n;
+    cin >> a >> b;
+    for (i=0; i<n; i++) {
+        x[i] = nextRand32();
+    }
+    nth_element(x, x+(n-1)/2, x+n-1);
+    if (n % 2 != 0)
+        med = x[(n - 1)/2];цццц
+    else
+        med = ((x[n/2-1] + x[n/2]) / 2);
+    sum = 0;
+    for (i = 0; i < n; i++) {
+        temp = x[i] - med;
+        sum = sum + abs(temp);
+    }
+    cout << sum;
+    return 0;
+}
